@@ -33,6 +33,19 @@ namespace BunnyBot
             Grammar grammer = new Grammar(gBuiler);
             user.LoadGrammarAsync(grammer);
             user.SetInputToDefaultAudioDevice();
+            user.SpeechRecognized += User_SpeechRecognized;
+                       
+        }
+
+        private void User_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
+        {
+            string input = e.Result.Text;
+            switch (input)
+            {
+                case "hai":
+                    bunny.Speak("Hello");
+                    break;
+            }
         }
     }
 }
