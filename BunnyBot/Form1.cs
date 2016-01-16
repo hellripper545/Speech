@@ -43,6 +43,9 @@ namespace BunnyBot
             switch (input)
             {
                 case "hai":
+                case "hello":
+                case "hey":
+                case "bunny":
                     bunny.Speak("Hello");
                     break;
             }
