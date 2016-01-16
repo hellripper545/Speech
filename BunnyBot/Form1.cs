@@ -51,19 +51,19 @@ namespace BunnyBot
                 case "hello bunny":
                     if ( now.Hour >= 5 && now.Hour < 12)
                     {
-                        bunny.Speak("Good Morning" +userName );
+                        bunny.SpeakAsync("Good Morning" +userName );
                     }
                     if (now.Hour >= 12 && now.Hour < 18)
                     {
-                        bunny.Speak("Good Afternoon " +userName);
+                        bunny.SpeakAsync("Good Afternoon " +userName);
                     }
                     if (now.Hour >= 18 && now.Hour < 24)
                     {
-                        bunny.Speak("Good Evening " +userName);
+                        bunny.SpeakAsync("Good Evening " +userName);
                     }
                     if (now.Hour < 5)
                     {
-                        bunny.Speak("Hello " +userName + ", it's getting late");
+                        bunny.SpeakAsync("Hello " +userName + ", it's getting late");
                     }
                     break;
                 case "bunny":
@@ -71,33 +71,33 @@ namespace BunnyBot
                     ranNum = rnd.Next(1, 5);
                     if (ranNum == 1)
                     {
-                        bunny.Speak("Yes sir");
+                        bunny.SpeakAsync("Yes sir");
                     }
                     else if (ranNum == 2)
                     {
-                        bunny.Speak("Yes?");
+                        bunny.SpeakAsync("Yes?");
                     }
                     else if (ranNum == 3)
                     {
-                        bunny.Speak("How may I help?");
+                        bunny.SpeakAsync("How may I help?");
                     }
                     else if (ranNum == 4)
                     {
-                        bunny.Speak("How may I be of assistance?");
+                        bunny.SpeakAsync("How may I be of assistance?");
                     }
                     break;
 
                 case "what is my name":
-                    bunny.Speak( " " +userName );
+                    bunny.SpeakAsync( " " +userName );
                     break;
 
                 case "what time is it":
                     string time = now.GetDateTimeFormats('t')[0];
-                    bunny.Speak("time");
+                    bunny.SpeakAsync("time");
                     break;
 
                 case "what date is it":
-                    bunny.Speak(DateTime.Today.ToString("dd-MM-yyyy"));
+                    bunny.SpeakAsync(DateTime.Today.ToString("dd-MM-yyyy"));
                     break;
 
                 case "goodbye":
@@ -108,12 +108,12 @@ namespace BunnyBot
                 case "see you":
                     if (ranNum > 6)
                     {
-                        bunny.Speak("Farewell");
+                        bunny.SpeakAsync("Farewell");
                         Close();
                     }
                     else
                     {
-                        bunny.Speak("GoodBye");
+                        bunny.SpeakAsync("GoodBye");
                         Close();
                     }
                     break;
