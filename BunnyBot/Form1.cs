@@ -29,7 +29,7 @@ namespace BunnyBot
         private void form1_Load(object sender, EventArgs e)
         {
             Choices commands = new Choices();
-            commands.Add(new string[] { "bunny", "hello", "hai", "hey", "hello bunny", "what is my name", "what time is it", "what day is it", "goodbye", "goodbye bunny", "close bunny", "go offline", "bye", "see you" });
+            commands.Add(new string[] { "bunny", "hello", "hai", "hey", "hello bunny", "what is my name", "what time is it", "what day is it", "goodbye", "goodbye bunny", "close bunny", "go offline", "bye", "see you","out of my way","offscreen","come back","onscreen" });
             GrammarBuilder gBuiler = new GrammarBuilder();
             gBuiler.Append(commands);
             Grammar grammer = new Grammar(gBuiler);
@@ -66,6 +66,7 @@ namespace BunnyBot
                         bunny.SpeakAsync("Hello " +userName + ", it's getting late");
                     }
                     break;
+
                 case "bunny":
                 case "hey":
                     ranNum = rnd.Next(1, 5);
@@ -96,8 +97,44 @@ namespace BunnyBot
                     bunny.SpeakAsync("time");
                     break;
 
+                case "what day is it":
+                    bunny.SpeakAsync(DateTime.Today.ToString("dddd"));
+                    break;
+
                 case "what date is it":
                     bunny.SpeakAsync(DateTime.Today.ToString("dd-MM-yyyy"));
+                    break;
+
+                case "out of the way":
+                case "offscreen":
+                    if (WindowState == FormWindowState.Normal || WindowState == FormWindowState.Maximized)
+                    {
+                        WindowState = FormWindowState.Minimized;
+                        bunny.SpeakAsync("My Apologies");
+                    }
+                    break;
+
+                case "come back":
+                case "onscreen":
+                    if (WindowState == FormWindowState.Minimized)
+                    {
+                        bunny.SpeakAsync("Onscreen Sir");
+                        WindowState = FormWindowState.Normal;
+                    }
+                    break;
+
+                case "go fullscreen":
+                    FormBorderStyle = FormBorderStyle.None;
+                    WindowState = FormWindowState.Maximized;
+                    TopMost = true;
+                    bunny.SpeakAsync("Expanding sir");
+                    break;
+                                        
+                case "exit fullscreen":
+                    FormBorderStyle = FormBorderStyle.Sizable;
+                    WindowState = FormWindowState.Normal;
+                    TopMost = false;
+                    bunny.SpeakAsync("Exiting sir");
                     break;
 
                 case "goodbye":
