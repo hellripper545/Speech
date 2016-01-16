@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Speech.Recognition;
 using System.Speech.Synthesis;
 using System.Globalization;
+using System.Diagnostics;
 
 namespace BunnyBot
 {
@@ -19,7 +20,7 @@ namespace BunnyBot
         SpeechSynthesizer bunny = new SpeechSynthesizer();
         string userName = Environment.UserName;
         private int ranNum;
-
+       
         public form1()
         {
             InitializeComponent();
@@ -29,7 +30,7 @@ namespace BunnyBot
         private void form1_Load(object sender, EventArgs e)
         {
             Choices commands = new Choices();
-            commands.Add(new string[] { "bunny", "hello", "hai", "hey", "hello bunny", "what is my name", "what time is it", "what day is it", "goodbye", "goodbye bunny", "close bunny", "go offline", "bye", "see you","out of my way","offscreen","come back","onscreen" });
+            commands.Add(new string[] { "bunny", "hello", "hai", "hey", "hello bunny", "what is my name", "what time is it", "what day is it", "goodbye", "goodbye bunny", "close bunny", "go offline", "bye", "see you","out of my way","offscreen","come back","onscreen","go fullscreen","exit fullscreen","shutdown","logoff","restart" });
             GrammarBuilder gBuiler = new GrammarBuilder();
             gBuiler.Append(commands);
             Grammar grammer = new Grammar(gBuiler);
@@ -154,8 +155,22 @@ namespace BunnyBot
                         Close();
                     }
                     break;
-                   
+
+
+                case "shutdown":
+                    System.Diagnostics.Process.Start("shutdown"  , "-s");
+                    break;
+                    
+                case "logoff":
+                    System.Diagnostics.Process.Start("logoff" , "-l");
+                    break;
+                    
+                case "restart":
+                    System.Diagnostics.Process.Start("restart" , "-r");
+                     break;
+
             }
+          
         }
     }
 }
