@@ -48,6 +48,14 @@ namespace BunnyBot
                 case "bunny":
                     bunny.Speak("Hello");
                     break;
+                case "what time is it":
+                    DateTime now = new DateTime();
+                    string time = now.GetDateTimeFormats('t')[0];
+                    bunny.Speak(time);
+                    break;
+                case "what date is it":
+                    bunny.Speak(DateTime.Today.ToString("dd-MM-yyyy"));
+                    break;
             }
         }
     }
