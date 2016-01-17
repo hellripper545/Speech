@@ -11,6 +11,7 @@ using System.Speech.Recognition;
 using System.Speech.Synthesis;
 using System.Globalization;
 using System.Diagnostics;
+using System.IO;
 
 namespace BunnyBot
 {
@@ -24,20 +25,17 @@ namespace BunnyBot
         public form1()
         {
             InitializeComponent();
+            pictureBox1.ImageLocation = "C:\\Users\\RAMYA\\Documents\\Visual Studio 2015\\Projects\\speech\\BunnyBot\\BunnyBot\\Resources\\BunnyBot.gif";
+            user.SetInputToDefaultAudioDevice();
         }
 
         
         private void form1_Load(object sender, EventArgs e)
         {
-            Choices commands = new Choices();
-            commands.Add(new string[] { "bunny", "hello", "hai", "hey", "hello bunny", "what is my name", "what time is it", "what day is it", "goodbye", "goodbye bunny", "close bunny", "go offline", "bye", "see you","out of my way","offscreen","come back","onscreen","go fullscreen","exit fullscreen","shutdown","logoff","restart" });
-            GrammarBuilder gBuiler = new GrammarBuilder();
-            gBuiler.Append(commands);
-            Grammar grammer = new Grammar(gBuiler);
-            user.LoadGrammarAsync(grammer);
-            user.SetInputToDefaultAudioDevice();
-            user.SpeechRecognized += User_SpeechRecognized;
-                                   
+            user.LoadGrammar(new Grammar(new GrammarBuilder(new Choices(File.ReadAllLines(@"C:\Users\RAMYA\Documents\Visual Studio 2015\Projects\speech\BunnyBot\BunnyBot\Commands.txt")))));
+            user.SpeechRecognized +=new EventHandler<SpeechRecognizedEventArgs>(User_SpeechRecognized);
+            user.RecognizeAsync(RecognizeMode.Multiple);
+                                                    
         }
 
         private void User_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
@@ -90,7 +88,7 @@ namespace BunnyBot
                     break;
 
                 case "what is my name":
-                    bunny.SpeakAsync( " " +userName );
+                    bunny.SpeakAsync( " " +userName.ToString() );
                     break;
 
                 case "what time is it":
