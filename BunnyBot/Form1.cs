@@ -38,7 +38,7 @@ namespace BunnyBot
         private void form1_Load(object sender, EventArgs e)
         {
             Choices commands = new Choices();
-            commands.Add(new string[] { "open mydownloads", "open mydocuments", "open mypictures", "open mymusic", "open myvideos", "open mycomputer", "guess what", "how old are you","what is your age bunny","can i change your name","what is love" ,"do you believe in love","tell me a story","what is my name", "how are you","hai", "hello bunny", "hello", "bunny", "hey", "what is my name" , "what time is it" , "what day is it", "what date is it" ,"out of my way","off screen","comeback","on screen", "go fullscreen", "exit fullscreen","shutdown","log off","restart","goodbye","bye","see you","close" });
+            commands.Add(new string[] { "hide debug","debug","open mydownloads", "open mydocuments", "open mypictures", "open mymusic", "open myvideos", "open mycomputer", "guess what", "how old are you","what is your age bunny","can i change your name","what is love" ,"do you believe in love","tell me a story","what is my name", "how are you","hai", "hello bunny", "hello", "bunny", "hey", "what is my name" , "what time is it" , "what day is it", "what date is it" ,"out of my way","off screen","comeback","on screen", "go fullscreen", "exit fullscreen","shutdown","log off","restart","goodbye","bye","see you","close" });
             GrammarBuilder gbuilder = new GrammarBuilder();
             gbuilder.Append(commands);
             Grammar grammer = new Grammar(gbuilder);
@@ -49,31 +49,51 @@ namespace BunnyBot
             user.RecognizeAsync(RecognizeMode.Multiple);
         }
 
+        public void speak(string recognizedVoice)
+        {
+            bunny.SpeakAsync(recognizedVoice);
+            outputText.AppendText(recognizedVoice + "\n");
+        }
+
+
         private void User_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
         {
             string input = e.Result.Text;
             Random rnd = new Random();
             //DateTime now = new DateTime();
 
+
+            //AdvancedCommands
+            if(input == "debug")
+            {
+                inputText.Visible = true;
+                outputText.Visible = true;
+            }
+            else if(input == "hide debug")
+            {
+                inputText.Visible = false;
+                outputText.Visible = false;
+            }
+
             //Social commands ;)
-            if (input == "hai" || input == "hello bunny" || input == "hello")
+           else if (input == "hai" || input == "hello bunny" || input == "hello")
             {
 
                 if (DateTime.Now.Hour >= 5 && DateTime.Now.Hour < 12)
                 {
-                    bunny.SpeakAsync("Good Morning" + userName);
+                    speak("Good Morning" + userName);
                 }
                 if (DateTime.Now.Hour >= 12 && DateTime.Now.Hour < 18)
                 {
-                    bunny.SpeakAsync("Good Afternoon " + userName);
+                    speak("Good Afternoon " + userName);
                 }
                 if (DateTime.Now.Hour >= 18 && DateTime.Now.Hour < 24)
                 {
-                    bunny.SpeakAsync("Good Evening " + userName);
+                    speak("Good Evening " + userName);
                 }
                 if (DateTime.Now.Hour < 5)
                 {
-                    bunny.SpeakAsync("Hello " + userName + ", it's getting late");
+                    speak("Hello " + userName + ", it's getting late");
                 }
             }
             else if (input == "bunny" || input == "hey")
@@ -81,30 +101,30 @@ namespace BunnyBot
                 ranNum = rnd.Next(1, 5);
                 if (ranNum == 1)
                 {
-                    bunny.SpeakAsync("Yes sir");
+                    speak("Yes sir");
                 }
                 else if (ranNum == 2)
                 {
-                    bunny.SpeakAsync("Yes?");
+                    speak("Yes?");
                 }
                 else if (ranNum == 3)
                 {
-                    bunny.SpeakAsync("How may I help?");
+                    speak("How may I help?");
                 }
                 else if (ranNum == 4)
                 {
-                    bunny.SpeakAsync("How may I be of assistance?");
+                    speak("How may I be of assistance?");
                 }
             }
 
             else if (input == "how are you")
             {
-                bunny.SpeakAsync("Quiet well. Thanks for asking");
+                speak("Quiet well. Thanks for asking");
             }
 
             else if (input == "what is my name")
             {
-                bunny.SpeakAsync(" " + userName.ToString());
+                speak(" " + userName.ToString());
             }
 
             else if (input == "tell me a story")
@@ -112,51 +132,51 @@ namespace BunnyBot
                 ranNum = rnd.Next(1, 4);
                 if (ranNum == 1)
                 {
-                    bunny.SpeakAsync("Once upon a time a protagonist set out. An antagonist attempted to thwart her. There was rising action! Drama! And then through heroic action, the conflict was resolved. The End!");
+                    speak("Once upon a time a protagonist set out. An antagonist attempted to thwart her. There was rising action! Drama! And then through heroic action, the conflict was resolved. The End!");
                 }
                 else if (ranNum == 2)
                 {
-                    bunny.SpeakAsync("Once there was a beginning. Soon after, there was a middle. The End!! Funny isn't it ");
+                    speak("Once there was a beginning. Soon after, there was a middle. The End!! Funny isn't it ");
                 }
                 else if (ranNum == 3)
                 {
-                    bunny.SpeakAsync("Why didn't the spider go to the school? Because she learned everything on web!");
+                    speak("Why didn't the spider go to the school? Because she learned everything on web!");
                 }
             }
 
             else if (input == "what is love" || input == "do you believe in love")
             {
-                bunny.SpeakAsync("I'll need quiet a few upgrades before I can give you a heartfelt answer");
+                speak("I'll need quiet a few upgrades before I can give you a heartfelt answer");
             }
 
             else if (input == "can i change your name")
             {
-                bunny.SpeakAsync("What if i started you calling thumbs? Lets stick with what we've got");
+                speak("What if i started you calling thumbs? Lets stick with what we've got");
             }
 
             else if (input == "how old are you" || input == "what is your age bunny")
             {
-                bunny.SpeakAsync("By your calender, I'm still in infancy. In bot year's im quiet mature");
+                speak("By your calender, I'm still in infancy. In bot year's im quiet mature");
             }
 
             else if (input == "guess what")
             {
-                bunny.SpeakAsync("There are 2,335,981,212,665 possible anwsers for that question");
+                speak("There are 2,335,981,212,665 possible anwsers for that question");
             }
             
             //DateTime commands
             else if (input == "what time is it")
             {
                 //string time = now.GetDateTimeFormats('t')[0];
-                bunny.SpeakAsync(DateTime.Now.ToString("h:mm tt"));
+                speak(DateTime.Now.ToString("h:mm tt"));
             }
             else if (input == "what day is it")
             {
-                bunny.SpeakAsync(DateTime.Today.ToString("dddd"));
+                speak(DateTime.Today.ToString("dddd"));
             }
             else if (input == "what date is it")
             {
-                bunny.SpeakAsync(DateTime.Today.ToString("dd-MM-yyyy"));
+                speak(DateTime.Today.ToString("dd-MM-yyyy"));
             }
 
             //FormControl commands
@@ -165,7 +185,7 @@ namespace BunnyBot
                 if (WindowState == FormWindowState.Normal || WindowState == FormWindowState.Maximized)
                 {
                     WindowState = FormWindowState.Minimized;
-                    bunny.SpeakAsync("My Apologies");
+                    speak("My Apologies");
                 }
             }
 
@@ -173,7 +193,7 @@ namespace BunnyBot
             {
                 if (WindowState == FormWindowState.Minimized)
                 {
-                    bunny.SpeakAsync("Onscreen Sir");
+                    speak("Onscreen Sir");
                     WindowState = FormWindowState.Normal;
                 }
             }
@@ -182,26 +202,26 @@ namespace BunnyBot
                 FormBorderStyle = FormBorderStyle.None;
                 WindowState = FormWindowState.Maximized;
                 TopMost = true;
-                bunny.SpeakAsync("Expanding sir");
+                speak("Expanding sir");
             }
             else if (input == "exit  fullscreen")
             {
                 FormBorderStyle = FormBorderStyle.Sizable;
                 WindowState = FormWindowState.Normal;
                 TopMost = false;
-                bunny.SpeakAsync("Exiting sir");
+                speak("Exiting sir");
             }
             //ClosingForm commands
             else if (input == "goodbye" || input == "bye" || input == "seeyou" || input == "go offline" || input == "close")
             {
                 if (ranNum > 6)
                 {
-                    bunny.SpeakAsync("Farewell");
+                    speak("Farewell");
                     Close();
                 }
                 else
                 {
-                    bunny.SpeakAsync("GoodBye");
+                    speak("GoodBye");
                     Close();
                 }
             }
@@ -210,36 +230,36 @@ namespace BunnyBot
 
             else if (input == "open mycomputer")
             {
-                bunny.SpeakAsync("As you wish");
+                speak("As you wish");
                 Process.Start("explorer", myComputer);
             }
 
             else if (input == "open mymusic")
             {
-                bunny.SpeakAsync("As you wish");
+                speak("As you wish");
                 Process.Start("explorer", myMusic);
             }
 
             else if (input == "open mypictures")
             {
-                bunny.SpeakAsync("As you wish");
+                speak("As you wish");
                 Process.Start("explorer", myPictures);
             }
 
             else if (input == "open myvideos")
             {
-                bunny.SpeakAsync("As you wish");
+                speak("As you wish");
                 Process.Start("explorer", myVideos);
             }
 
             else if (input == "open mydocuments")
             {
-                bunny.SpeakAsync("As you wish");
+                speak("As you wish");
                 Process.Start("explorer", myDocuments);
             }
             else if (input == "open mydownloads")
             {
-                bunny.SpeakAsync("okay");
+                speak("okay");
                 Process.Start("explorer", myDownloads);
             }
             else if (input == "shutdown")
