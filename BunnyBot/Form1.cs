@@ -47,23 +47,23 @@ namespace BunnyBot
         {
             string input = e.Result.Text;
             Random rnd = new Random();
-            DateTime now = new DateTime();
+            //DateTime now = new DateTime();
             if (input == "hai" || input == "hello bunny" || input == "hello")
             {
 
-                if (now.Hour >= 5 && now.Hour < 12)
+                if (DateTime.Now.Hour >= 5 && DateTime.Now.Hour < 12)
                 {
                     bunny.SpeakAsync("Good Morning" + userName);
                 }
-                if (now.Hour >= 12 && now.Hour < 18)
+                if (DateTime.Now.Hour >= 12 && DateTime.Now.Hour < 18)
                 {
                     bunny.SpeakAsync("Good Afternoon " + userName);
                 }
-                if (now.Hour >= 18 && now.Hour < 24)
+                if (DateTime.Now.Hour >= 18 && DateTime.Now.Hour < 24)
                 {
                     bunny.SpeakAsync("Good Evening " + userName);
                 }
-                if (now.Hour < 5)
+                if (DateTime.Now.Hour < 5)
                 {
                     bunny.SpeakAsync("Hello " + userName + ", it's getting late");
                 }
@@ -95,8 +95,8 @@ namespace BunnyBot
             }
             else if (input == "what time is it")
             {
-                string time = now.GetDateTimeFormats('t')[0];
-                bunny.SpeakAsync("time");
+                //string time = now.GetDateTimeFormats('t')[0];
+                bunny.SpeakAsync(DateTime.Now.ToString("h:mm tt"));
             }
             else if (input == "what day is it")
             {
