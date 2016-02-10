@@ -21,6 +21,12 @@ namespace BunnyBot
         SpeechSynthesizer bunny = new SpeechSynthesizer();
         string userName = Environment.UserName;
         private int ranNum;
+        string myComputer = Environment.GetFolderPath(Environment.SpecialFolder.MyComputer);
+        string myDocuments = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+        string myMusic = Environment.GetFolderPath(Environment.SpecialFolder.MyMusic);
+        string myPictures = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
+        string myVideos = Environment.GetFolderPath(Environment.SpecialFolder.MyVideos);
+        string myDownloads = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\Downloads";
 
         public form1()
         {
@@ -199,7 +205,43 @@ namespace BunnyBot
                     Close();
                 }
             }
+
             //SystemCommands
+
+            else if (input == "open mycomputer")
+            {
+                bunny.SpeakAsync("As you wish");
+                Process.Start("explorer", myComputer);
+            }
+
+            else if (input == "open mymusic")
+            {
+                bunny.SpeakAsync("As you wish");
+                Process.Start("explorer", myMusic);
+            }
+
+            else if (input == "open mypictures")
+            {
+                bunny.SpeakAsync("As you wish");
+                Process.Start("explorer", myPictures);
+            }
+
+            else if (input == "open myvideos")
+            {
+                bunny.SpeakAsync("As you wish");
+                Process.Start("explorer", myVideos);
+            }
+
+            else if (input == "open mydocuments")
+            {
+                bunny.SpeakAsync("As you wish");
+                Process.Start("explorer", myDocuments);
+            }
+            else if (input == "open mydownloads")
+            {
+                bunny.SpeakAsync("okay");
+                Process.Start("explorer", myDownloads);
+            }
             else if (input == "shutdown")
             {
                 System.Diagnostics.Process.Start("shutdown", "-s");
