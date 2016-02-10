@@ -32,6 +32,7 @@
             this.inputText = new System.Windows.Forms.TextBox();
             this.outputText = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -74,6 +75,17 @@
             this.label1.TabIndex = 3;
             this.label1.Text = "State : Sleep";
             // 
+            // button1
+            // 
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.button1.Location = new System.Drawing.Point(221, 5);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(48, 19);
+            this.button1.TabIndex = 4;
+            this.button1.Text = "Help";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -81,6 +93,7 @@
             this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(468, 298);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.outputText);
             this.Controls.Add(this.inputText);
@@ -103,6 +116,7 @@
         private System.Windows.Forms.TextBox inputText;
         private System.Windows.Forms.TextBox outputText;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button button1;
     }
 }
 

@@ -306,5 +306,11 @@ namespace BunnyBot
                 inputText.AppendText(input + "\n");
             }
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            help obj = new help();
+            obj.Show();
+        }
     }
 }
