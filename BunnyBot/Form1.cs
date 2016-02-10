@@ -25,7 +25,6 @@ namespace BunnyBot
         public form1()
         {
             InitializeComponent();
-            pictureBox1.ImageLocation = "C:\\Users\\RAMYA\\Documents\\Visual Studio 2015\\Projects\\speech\\BunnyBot\\BunnyBot\\Resources\\BunnyBot.gif";
             //user.SetInputToDefaultAudioDevice();
         }
 
@@ -39,6 +38,7 @@ namespace BunnyBot
             Grammar grammer = new Grammar(gbuilder);
             user.LoadGrammarAsync(grammer);
             user.SetInputToDefaultAudioDevice();
+            pictureBox1.ImageLocation = "C:\\Users\\RAMYA\\Documents\\Visual Studio 2015\\Projects\\speech\\BunnyBot\\BunnyBot\\Resources\\BunnyBot.gif";
             user.SpeechRecognized += new EventHandler<SpeechRecognizedEventArgs>(User_SpeechRecognized);
             user.RecognizeAsync(RecognizeMode.Multiple);
         }
