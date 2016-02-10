@@ -274,6 +274,8 @@ namespace BunnyBot
             {
                 System.Diagnostics.Process.Start("restart", "-r");
             }
+
+            inputText.AppendText(input + "\n");
         }
     }
 }
