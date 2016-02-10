@@ -32,7 +32,7 @@ namespace BunnyBot
         private void form1_Load(object sender, EventArgs e)
         {
             Choices commands = new Choices();
-            commands.Add(new string[] { "hai", "hello bunny", "hello", "bunny", "hey", "what is my name" , "what time is it" , "what day is it", "what date is it" ,"out of my way","off screen","comeback","on screen", "go fullscreen", "exit fullscreen","shutdown","log off","restart","goodbye","bye","see you","close" });
+            commands.Add(new string[] { "guess what", "how old are you","what is your age bunny","can i change your name","what is love" ,"do you believe in love","tell me a story","what is my name", "how are you","hai", "hello bunny", "hello", "bunny", "hey", "what is my name" , "what time is it" , "what day is it", "what date is it" ,"out of my way","off screen","comeback","on screen", "go fullscreen", "exit fullscreen","shutdown","log off","restart","goodbye","bye","see you","close" });
             GrammarBuilder gbuilder = new GrammarBuilder();
             gbuilder.Append(commands);
             Grammar grammer = new Grammar(gbuilder);
@@ -48,6 +48,8 @@ namespace BunnyBot
             string input = e.Result.Text;
             Random rnd = new Random();
             //DateTime now = new DateTime();
+
+            //Social commands ;)
             if (input == "hai" || input == "hello bunny" || input == "hello")
             {
 
@@ -89,10 +91,54 @@ namespace BunnyBot
                 }
             }
 
+            else if (input == "how are you")
+            {
+                bunny.SpeakAsync("Quiet well. Thanks for asking");
+            }
+
             else if (input == "what is my name")
             {
                 bunny.SpeakAsync(" " + userName.ToString());
             }
+
+            else if (input == "tell me a story")
+            {
+                ranNum = rnd.Next(1, 4);
+                if (ranNum == 1)
+                {
+                    bunny.SpeakAsync("Once upon a time a protagonist set out. An antagonist attempted to thwart her. There was rising action! Drama! And then through heroic action, the conflict was resolved. The End!");
+                }
+                else if (ranNum == 2)
+                {
+                    bunny.SpeakAsync("Once there was a beginning. Soon after, there was a middle. The End!! Funny isn't it ");
+                }
+                else if (ranNum == 3)
+                {
+                    bunny.SpeakAsync("Why didn't the spider go to the school? Because she learned everything on web!");
+                }
+            }
+
+            else if (input == "what is love" || input == "do you believe in love")
+            {
+                bunny.SpeakAsync("I'll need quiet a few upgrades before I can give you a heartfelt answer");
+            }
+
+            else if (input == "can i change your name")
+            {
+                bunny.SpeakAsync("What if i started you calling thumbs? Lets stick with what we've got");
+            }
+
+            else if (input == "how old are you" || input == "what is your age bunny")
+            {
+                bunny.SpeakAsync("By your calender, I'm still in infancy. In bot year's im quiet mature");
+            }
+
+            else if (input == "guess what")
+            {
+                bunny.SpeakAsync("There are 2,335,981,212,665 possible anwsers for that question");
+            }
+            
+            //DateTime commands
             else if (input == "what time is it")
             {
                 //string time = now.GetDateTimeFormats('t')[0];
@@ -106,6 +152,8 @@ namespace BunnyBot
             {
                 bunny.SpeakAsync(DateTime.Today.ToString("dd-MM-yyyy"));
             }
+
+            //FormControl commands
             else if (input == "out of the way" || input == "offscreen")
             {
                 if (WindowState == FormWindowState.Normal || WindowState == FormWindowState.Maximized)
@@ -137,6 +185,7 @@ namespace BunnyBot
                 TopMost = false;
                 bunny.SpeakAsync("Exiting sir");
             }
+            //ClosingForm commands
             else if (input == "goodbye" || input == "bye" || input == "seeyou" || input == "go offline" || input == "close")
             {
                 if (ranNum > 6)
@@ -150,6 +199,7 @@ namespace BunnyBot
                     Close();
                 }
             }
+            //SystemCommands
             else if (input == "shutdown")
             {
                 System.Diagnostics.Process.Start("shutdown", "-s");
