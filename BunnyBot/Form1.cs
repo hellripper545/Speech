@@ -26,13 +26,19 @@ namespace BunnyBot
         {
             InitializeComponent();
             pictureBox1.ImageLocation = "C:\\Users\\RAMYA\\Documents\\Visual Studio 2015\\Projects\\speech\\BunnyBot\\BunnyBot\\Resources\\BunnyBot.gif";
-            user.SetInputToDefaultAudioDevice();
+            //user.SetInputToDefaultAudioDevice();
         }
 
 
         private void form1_Load(object sender, EventArgs e)
         {
-            user.LoadGrammar(new Grammar(new GrammarBuilder(new Choices(File.ReadAllLines(@"C:\Users\RAMYA\Documents\Visual Studio 2015\Projects\speech\BunnyBot\BunnyBot\Commands.txt")))));
+            Choices commands = new Choices();
+            commands.Add(new string[] { "hai", "hello bunny", "hello", "bunny", "hey", "what is my name" , "what time is it" , "what day is it", "what date is it" ,"out of my way","off screen","comeback","on screen", "go fullscreen", "exit fullscreen","shutdown","log off","restart","goodbye","bye","see you","close" });
+            GrammarBuilder gbuilder = new GrammarBuilder();
+            gbuilder.Append(commands);
+            Grammar grammer = new Grammar(gbuilder);
+            user.LoadGrammarAsync(grammer);
+            user.SetInputToDefaultAudioDevice();
             user.SpeechRecognized += new EventHandler<SpeechRecognizedEventArgs>(User_SpeechRecognized);
             user.RecognizeAsync(RecognizeMode.Multiple);
         }
