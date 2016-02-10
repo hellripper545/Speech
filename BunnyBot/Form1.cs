@@ -21,6 +21,7 @@ namespace BunnyBot
         SpeechSynthesizer bunny = new SpeechSynthesizer();
         string userName = Environment.UserName;
         private int ranNum;
+        bool wake = false;
         string myComputer = Environment.GetFolderPath(Environment.SpecialFolder.MyComputer);
         string myDocuments = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
         string myMusic = Environment.GetFolderPath(Environment.SpecialFolder.MyMusic);
@@ -38,7 +39,7 @@ namespace BunnyBot
         private void form1_Load(object sender, EventArgs e)
         {
             Choices commands = new Choices();
-            commands.Add(new string[] { "hide debug","debug","open mydownloads", "open mydocuments", "open mypictures", "open mymusic", "open myvideos", "open mycomputer", "guess what", "how old are you","what is your age bunny","can i change your name","what is love" ,"do you believe in love","tell me a story","what is my name", "how are you","hai", "hello bunny", "hello", "bunny", "hey", "what is my name" , "what time is it" , "what day is it", "what date is it" ,"out of my way","off screen","comeback","on screen", "go fullscreen", "exit fullscreen","shutdown","log off","restart","goodbye","bye","see you","close" });
+            commands.Add(new string[] { "sleep","wake up bunny","hide debug","debug","open mydownloads", "open mydocuments", "open mypictures", "open mymusic", "open myvideos", "open mycomputer", "guess what", "how old are you","what is your age bunny","can i change your name","what is love" ,"do you believe in love","tell me a story","what is my name", "how are you","hai", "hello bunny", "hello", "bunny", "hey", "what is my name" , "what time is it" , "what day is it", "what date is it" ,"out of my way","off screen","comeback","on screen", "go fullscreen", "exit fullscreen","shutdown","log off","restart","goodbye","bye","see you","close" });
             GrammarBuilder gbuilder = new GrammarBuilder();
             gbuilder.Append(commands);
             Grammar grammer = new Grammar(gbuilder);
@@ -60,222 +61,250 @@ namespace BunnyBot
         {
             string input = e.Result.Text;
             Random rnd = new Random();
-            //DateTime now = new DateTime();
-
+            //DateTime now = new DateTime()
 
             //AdvancedCommands
-            if(input == "debug")
+            if (input == "wake up bunny")
             {
-                inputText.Visible = true;
-                outputText.Visible = true;
-            }
-            else if(input == "hide debug")
-            {
-                inputText.Visible = false;
-                outputText.Visible = false;
+                wake = true;
+                label1.Text = "State : Awake";
+                speak("I am online and ready to execute your commands");
             }
 
-            //Social commands ;)
-           else if (input == "hai" || input == "hello bunny" || input == "hello")
+            if (input == "sleep")
             {
-
-                if (DateTime.Now.Hour >= 5 && DateTime.Now.Hour < 12)
-                {
-                    speak("Good Morning" + userName);
-                }
-                if (DateTime.Now.Hour >= 12 && DateTime.Now.Hour < 18)
-                {
-                    speak("Good Afternoon " + userName);
-                }
-                if (DateTime.Now.Hour >= 18 && DateTime.Now.Hour < 24)
-                {
-                    speak("Good Evening " + userName);
-                }
-                if (DateTime.Now.Hour < 5)
-                {
-                    speak("Hello " + userName + ", it's getting late");
-                }
-            }
-            else if (input == "bunny" || input == "hey")
-            {
-                ranNum = rnd.Next(1, 5);
-                if (ranNum == 1)
-                {
-                    speak("Yes sir");
-                }
-                else if (ranNum == 2)
-                {
-                    speak("Yes?");
-                }
-                else if (ranNum == 3)
-                {
-                    speak("How may I help?");
-                }
-                else if (ranNum == 4)
-                {
-                    speak("How may I be of assistance?");
-                }
+                wake = false;
+                label1.Text = "State : Sleep";
+                speak("wake me up sir again");
             }
 
-            else if (input == "how are you")
+            if (wake)
             {
-                speak("Quiet well. Thanks for asking");
-            }
 
-            else if (input == "what is my name")
-            {
-                speak(" " + userName.ToString());
-            }
-
-            else if (input == "tell me a story")
-            {
-                ranNum = rnd.Next(1, 4);
-                if (ranNum == 1)
+               if (input == "debug")
                 {
-                    speak("Once upon a time a protagonist set out. An antagonist attempted to thwart her. There was rising action! Drama! And then through heroic action, the conflict was resolved. The End!");
+                    inputText.Visible = true;
+                    outputText.Visible = true;
                 }
-                else if (ranNum == 2)
+
+                else if (input == "hide debug")
                 {
-                    speak("Once there was a beginning. Soon after, there was a middle. The End!! Funny isn't it ");
+                    inputText.Visible = false;
+                    outputText.Visible = false;
                 }
-                else if (ranNum == 3)
+
+                //Social commands ;)
+                else if (input == "hai" || input == "hello bunny" || input == "hello")
                 {
-                    speak("Why didn't the spider go to the school? Because she learned everything on web!");
+
+                    if (DateTime.Now.Hour >= 5 && DateTime.Now.Hour < 12)
+                    {
+                        speak("Good Morning" + userName);
+                    }
+                    if (DateTime.Now.Hour >= 12 && DateTime.Now.Hour < 18)
+                    {
+                        speak("Good Afternoon " + userName);
+                    }
+                    if (DateTime.Now.Hour >= 18 && DateTime.Now.Hour < 24)
+                    {
+                        speak("Good Evening " + userName);
+                    }
+                    if (DateTime.Now.Hour < 5)
+                    {
+                        speak("Hello " + userName + ", it's getting late");
+                    }
                 }
-            }
 
-            else if (input == "what is love" || input == "do you believe in love")
-            {
-                speak("I'll need quiet a few upgrades before I can give you a heartfelt answer");
-            }
-
-            else if (input == "can i change your name")
-            {
-                speak("What if i started you calling thumbs? Lets stick with what we've got");
-            }
-
-            else if (input == "how old are you" || input == "what is your age bunny")
-            {
-                speak("By your calender, I'm still in infancy. In bot year's im quiet mature");
-            }
-
-            else if (input == "guess what")
-            {
-                speak("There are 2,335,981,212,665 possible anwsers for that question");
-            }
-            
-            //DateTime commands
-            else if (input == "what time is it")
-            {
-                //string time = now.GetDateTimeFormats('t')[0];
-                speak(DateTime.Now.ToString("h:mm tt"));
-            }
-            else if (input == "what day is it")
-            {
-                speak(DateTime.Today.ToString("dddd"));
-            }
-            else if (input == "what date is it")
-            {
-                speak(DateTime.Today.ToString("dd-MM-yyyy"));
-            }
-
-            //FormControl commands
-            else if (input == "out of the way" || input == "offscreen")
-            {
-                if (WindowState == FormWindowState.Normal || WindowState == FormWindowState.Maximized)
+                else if (input == "bunny" || input == "hey")
                 {
-                    WindowState = FormWindowState.Minimized;
-                    speak("My Apologies");
+                    ranNum = rnd.Next(1, 5);
+                    if (ranNum == 1)
+                    {
+                        speak("Yes sir");
+                    }
+                    else if (ranNum == 2)
+                    {
+                        speak("Yes?");
+                    }
+                    else if (ranNum == 3)
+                    {
+                        speak("How may I help?");
+                    }
+                    else if (ranNum == 4)
+                    {
+                        speak("How may I be of assistance?");
+                    }
                 }
-            }
 
-            else if (input == "come back" || input == "onscreen")
-            {
-                if (WindowState == FormWindowState.Minimized)
+                else if (input == "how are you")
                 {
-                    speak("Onscreen Sir");
+                    speak("Quiet well. Thanks for asking");
+                }
+
+                else if (input == "what is my name")
+                {
+                    speak(" " + userName.ToString());
+                }
+
+                else if (input == "tell me a story")
+                {
+                    ranNum = rnd.Next(1, 4);
+                    if (ranNum == 1)
+                    {
+                        speak("Once upon a time a protagonist set out. An antagonist attempted to thwart her. There was rising action! Drama! And then through heroic action, the conflict was resolved. The End!");
+                    }
+                    else if (ranNum == 2)
+                    {
+                        speak("Once there was a beginning. Soon after, there was a middle. The End!! Funny isn't it ");
+                    }
+                    else if (ranNum == 3)
+                    {
+                        speak("Why didn't the spider go to the school? Because she learned everything on web!");
+                    }
+                }
+
+                else if (input == "what is love" || input == "do you believe in love")
+                {
+                    speak("I'll need quiet a few upgrades before I can give you a heartfelt answer");
+                }
+
+                else if (input == "can i change your name")
+                {
+                    speak("What if i started you calling thumbs? Lets stick with what we've got");
+                }
+
+                else if (input == "how old are you" || input == "what is your age bunny")
+                {
+                    speak("By your calender, I'm still in infancy. In bot year's im quiet mature");
+                }
+
+                else if (input == "guess what")
+                {
+                    speak("There are 2,335,981,212,665 possible anwsers for that question");
+                }
+
+                //DateTime commands
+                else if (input == "what time is it")
+                {
+                    //string time = now.GetDateTimeFormats('t')[0];
+                    speak(DateTime.Now.ToString("h:mm tt"));
+                }
+
+                else if (input == "what day is it")
+                {
+                    speak(DateTime.Today.ToString("dddd"));
+                }
+
+                else if (input == "what date is it")
+                {
+                    speak(DateTime.Today.ToString("dd-MM-yyyy"));
+                }
+
+                //FormControl commands
+                else if (input == "out of the way" || input == "offscreen")
+                {
+                    if (WindowState == FormWindowState.Normal || WindowState == FormWindowState.Maximized)
+                    {
+                        WindowState = FormWindowState.Minimized;
+                        speak("My Apologies");
+                    }
+                }
+
+                else if (input == "come back" || input == "onscreen")
+                {
+                    if (WindowState == FormWindowState.Minimized)
+                    {
+                        speak("Onscreen Sir");
+                        WindowState = FormWindowState.Normal;
+                    }
+                }
+
+                else if (input == "go fullscreen")
+                {
+                    FormBorderStyle = FormBorderStyle.None;
+                    WindowState = FormWindowState.Maximized;
+                    TopMost = true;
+                    speak("Expanding sir");
+                }
+
+                else if (input == "exit  fullscreen")
+                {
+                    FormBorderStyle = FormBorderStyle.Sizable;
                     WindowState = FormWindowState.Normal;
+                    TopMost = false;
+                    speak("Exiting sir");
                 }
-            }
-            else if (input == "go fullscreen")
-            {
-                FormBorderStyle = FormBorderStyle.None;
-                WindowState = FormWindowState.Maximized;
-                TopMost = true;
-                speak("Expanding sir");
-            }
-            else if (input == "exit  fullscreen")
-            {
-                FormBorderStyle = FormBorderStyle.Sizable;
-                WindowState = FormWindowState.Normal;
-                TopMost = false;
-                speak("Exiting sir");
-            }
-            //ClosingForm commands
-            else if (input == "goodbye" || input == "bye" || input == "seeyou" || input == "go offline" || input == "close")
-            {
-                if (ranNum > 6)
+
+                //ClosingForm commands
+                else if (input == "goodbye" || input == "bye" || input == "seeyou" || input == "go offline" || input == "close")
                 {
-                    speak("Farewell");
-                    Close();
+                    if (ranNum > 6)
+                    {
+                        speak("Farewell");
+                        Close();
+                    }
+                    else
+                    {
+                        speak("GoodBye");
+                        Close();
+                    }
                 }
-                else
+
+                //SystemCommands
+
+                else if (input == "open mycomputer")
                 {
-                    speak("GoodBye");
-                    Close();
+                    speak("As you wish");
+                    Process.Start("explorer", myComputer);
                 }
-            }
 
-            //SystemCommands
+                else if (input == "open mymusic")
+                {
+                    speak("As you wish");
+                    Process.Start("explorer", myMusic);
+                }
 
-            else if (input == "open mycomputer")
-            {
-                speak("As you wish");
-                Process.Start("explorer", myComputer);
-            }
+                else if (input == "open mypictures")
+                {
+                    speak("As you wish");
+                    Process.Start("explorer", myPictures);
+                }
 
-            else if (input == "open mymusic")
-            {
-                speak("As you wish");
-                Process.Start("explorer", myMusic);
-            }
+                else if (input == "open myvideos")
+                {
+                    speak("As you wish");
+                    Process.Start("explorer", myVideos);
+                }
 
-            else if (input == "open mypictures")
-            {
-                speak("As you wish");
-                Process.Start("explorer", myPictures);
-            }
+                else if (input == "open mydocuments")
+                {
+                    speak("As you wish");
+                    Process.Start("explorer", myDocuments);
+                }
 
-            else if (input == "open myvideos")
-            {
-                speak("As you wish");
-                Process.Start("explorer", myVideos);
-            }
+                else if (input == "open mydownloads")
+                {
+                    speak("okay");
+                    Process.Start("explorer", myDownloads);
+                }
 
-            else if (input == "open mydocuments")
-            {
-                speak("As you wish");
-                Process.Start("explorer", myDocuments);
-            }
-            else if (input == "open mydownloads")
-            {
-                speak("okay");
-                Process.Start("explorer", myDownloads);
-            }
-            else if (input == "shutdown")
-            {
-                System.Diagnostics.Process.Start("shutdown", "-s");
-            }
-            else if (input == "logoff")
-            {
-                System.Diagnostics.Process.Start("logoff", "-l");
-            }
-            else if (input == "restart")
-            {
-                System.Diagnostics.Process.Start("restart", "-r");
-            }
+                else if (input == "shutdown")
+                {
+                    System.Diagnostics.Process.Start("shutdown", "-s");
+                }
 
-            inputText.AppendText(input + "\n");
+                else if (input == "logoff")
+                {
+                    System.Diagnostics.Process.Start("logoff", "-l");
+                }
+
+                else if (input == "restart")
+                {
+                    System.Diagnostics.Process.Start("restart", "-r");
+                }
+
+                inputText.AppendText(input + "\n");
+            }
         }
     }
 }
