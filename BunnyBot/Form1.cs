@@ -172,15 +172,6 @@ namespace BunnyBot
                 bunny.SpeakAsync("I've detected an in valid entry in your social commands, possibly a blank line. Social commands will cease to work until it is fixed.");
             }
             
-            //user.SpeechRecognized += new EventHandler<SpeechRecognizedEventArgs>(PlayFile_SpeechRecognized);
-            // user.SpeechRecognized += new EventHandler<SpeechRecognizedEventArgs>(AlarmClock_SpeechRecognized);
-            // user.AudioLevelUpdated += new EventHandler<AudioLevelUpdatedEventArgs>(_recognizer_AudioLevelUpdated);
-            //user.SpeechRecognized +=new EventHandler<SpeechRecognizedEventArgs>(User_SpeechRecognized);
-            //user.SpeechDetected += new EventHandler<SpeechDetectedEventArgs>(User_SpeechDetected);
-            //user.SetInputToDefaultAudioDevice();
-            //user.SpeechRecognized += new EventHandler<SpeechRecognizedEventArgs>(user_SpeechRecognized); //The event handler that allows us to say "JARVIS Come Back Online". Only one Speech Recognition Engine is active at a time.
-            //Process.Start(@"C:\\Users\\RAMYA\\Downloads\\Speech-master\\BunnyBot\\Resources\\Intro.mp4");
-            //axWindowsMediaPlayer1.uiMode = "none";
         }
              
         public static void GetWeather()
@@ -223,13 +214,9 @@ namespace BunnyBot
       
         void playvideo()
         {
-            //axWindowsMediaPlayer1.Visible = true;
-            //axWindowsMediaPlayer1.uiMode = "none";
+            axWindowsMediaPlayer1.uiMode = "none";
             user.RecognizeAsyncCancel();
             axWindowsMediaPlayer1.URL = "Resources\\Intro.mp4";
-            //axWindowsMediaPlayer1.URL = "C:\\Users\\" +userName+ "\\Downloads\\Speech-master\\BunnyBot\\Resources\\Intro.mp4";
-            //bunny.SelectVoiceByHints(VoiceGender.Male);
-            //bunny.SpeakAsync(userName.ToString());
             bunny.SpeakAsync("Hello " + userName.ToString() + " I am Bunny. The voice of virtual intelligence. Let me make a room to reside in your memory. I will be your digital personal Assistant ");
             axWindowsMediaPlayer1.PlayStateChange += new AxWMPLib._WMPOCXEvents_PlayStateChangeEventHandler(axWindowsMediaPlayer1_PlayStateChange);   
 
@@ -241,9 +228,6 @@ namespace BunnyBot
             {
                 axWindowsMediaPlayer1.Visible = false;
                 user.RecognizeAsync(RecognizeMode.Multiple);
-                //this.WindowState = FormWindowState.Normal;
-                //this.WindowStyle = WindowStyle.SingleBorderWindow;
-                //this.WindowState = System.Windows.WindowState.Normal;
             }
         }
 
@@ -257,22 +241,6 @@ namespace BunnyBot
         private void form1_Load(object sender, EventArgs e)
         {
             playvideo();
-
-            //user.SetInputToDefaultAudioDevice();
-
-            //user.SpeechRecognized += new EventHandler<SpeechRecognizedEventArgs>(user_SpeechRecognized);
-            // user.SpeechRecognitionRejected += new EventHandler<SpeechRecognitionRejectedEventArgs>(User_SpeechRecognitionRejected);
-            //user.RecognizeAsync(RecognizeMode.Multiple);
-            //axWindowsMediaPlayer1.Visible = true;
-            //axWindowsMediaPlayer1.Visible = false;
-            //axWindowsMediaPlayer1.fullScreen = false;
-            //Choices commands = new Choices();
-            //commands.Add(new string[] { "whats the weather like", "whats the temperatures like", "open windows defender", "open paint", "open notepad", "open powerpoint", "open excel", "open wordpad", "open windows media player", "switch window", "close window", "close salutation", "open salutation", "open mydownloads", "open mydocuments", "open mypictures", "open mymusic", "open myvideos", "open mycomputer", "hide debug", "debug", "hide commands", "show me basic commands", "shutup", "wake up bunny", "sleep", "hai", "hello", "bunny", "hey", "how are you", "my name", "my name bunny", "tell me a story", "what is love", "do you believe in love", "can i change your name", "how old are you", "what is your age bunny", "guess what", "time is it", "what time is it", "day is it", "what date is it", "out of my way", "offscreen", "off screen", "come back", "onscreen", "on screen", "fullscreen", "full screen", "exit fullscreen", "exit full screen", "goodbye", "bye", "see you", "bye", "go offline", "shutdown", "restart", "logoff", "open google", "open facebook" });
-            //GrammarBuilder gbuiler = new GrammarBuilder();
-            //gbuiler.Append(commands);
-            //Grammar grammer = new Grammar(gbuiler);
-            //user.LoadGrammarAsync(grammer);
-            //user.SetInputToDefaultAudioDevice();
             pictureBox1.ImageLocation = "Resources\\BunnyBot.gif";
             string[] commands=File.ReadAllLines(Environment.CurrentDirectory +"\\Commands.txt");
             user.LoadGrammar(new Grammar(new GrammarBuilder(new Choices(commands))));
@@ -284,8 +252,7 @@ namespace BunnyBot
             user.AudioLevelUpdated += new EventHandler<AudioLevelUpdatedEventArgs>(User_AudioLevelUpdated);
             user.RecognizeAsync(RecognizeMode.Multiple);
             user.SpeechRecognitionRejected += new EventHandler<SpeechRecognitionRejectedEventArgs>(User_SpeechRecognitionRejected);
-            //user.SpeechRecognized +=new EventHandler<SpeechRecognizedEventArgs>(User_SpeechRecognized);
-            //bunny.SelectVoiceByHints(VoiceGender.Female, VoiceAge.Teen);
+            bunny.SelectVoiceByHints(VoiceGender.Female, VoiceAge.Teen);
         }
 
         private void User_AudioLevelUpdated(object sender, AudioLevelUpdatedEventArgs e)
@@ -569,41 +536,7 @@ namespace BunnyBot
                     outputText.Visible = false;
                 }
 
-                /*else if (input == "open mycomputer")
-                {
-                    speak("Opening My computer ");
-                    Process.Start("explorer", myComputer);
-                }
-
-                else if (input == "open mymusic")
-                {
-                    speak("Opening My Music ");
-                    Process.Start("explorer", myMusic);
-                }
-
-                else if (input == "open mypictures")
-                {
-                    speak("Opening My Pictures ");
-                    Process.Start("explorer", myPictures);
-                }
-
-                else if (input == "open myvideos")
-                {
-                    speak("Opening My Videos ");
-                    Process.Start("explorer", myVideos);
-                }
-
-                else if (input == "open mydocuments")
-                {
-                    speak("Opening My Documents ");
-                    Process.Start("explorer", myDocuments);
-                }
-                else if (input == "open mydownloads")
-                {
-                    speak("Opening My Downloads ");
-                    Process.Start("explorer", myDownloads);
-                }*/
-
+                
                 //Social commands
                 else if (input == "hai" || input == "hello")
                 {
@@ -690,7 +623,7 @@ namespace BunnyBot
 
                 else if (input == "what time is it")
                 {
-                    //string time = now.GetDateTimeFormats('t')[0];
+                   
                     speak(DateTime.Now.ToString("h:mm tt"));
                 }
 
@@ -755,20 +688,7 @@ namespace BunnyBot
                     }
                 }
 
-                /*
-                //browser commands
-                else if (input == "open google")
-                {
-                    speak("Diving to google");
-                    Process.Start("http://www.google.com");
-                }
-
-                else if (input == "open facebook")
-                {
-                    speak("What a dumb choice? But still i will open it ");
-                    Process.Start("http://www.facebook.com");
-                }*/
-
+               
                 //closing application
                 else if (input.Contains("goodbye") || input.Contains("see you") || input.Contains("bye") || input.Contains("go offline"))
                 {
